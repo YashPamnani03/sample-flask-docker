@@ -1,0 +1,12 @@
+From Ubuntu
+
+RUN apt install update
+RUN apt-get install -y python3 python3-setuptools python3-dev build-essential python-pip python3-mysqldb python3-venv python3-requests
+
+
+COPY * /opt/webapp/
+RUN python3 -m venv /opt/webapp/.venv
+RUN source /opt/webapp/.venv/bin/activate
+RUN pip install -r /opt/webapp/requirements.txt
+
+ENTRYPOINT FLASK_APP=/opt/webapp/app.py flask run --host=0.0.0.0
